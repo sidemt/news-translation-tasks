@@ -1,6 +1,6 @@
 ---
 title: How to Index Your Next.js Apps Faster Using IndexNow
-date: 2024-08-07T15:33:29.357Z
+date: 2024-08-07T16:11:04.738Z
 author: Vivek Sahu
 authorURL: https://www.freecodecamp.org/news/author/wewake/
 originalURL: https://www.freecodecamp.org/news/how-to-index-nextjs-pages-with-indexnow/

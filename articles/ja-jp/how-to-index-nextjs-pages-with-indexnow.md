@@ -1,6 +1,6 @@
 ---
-title: Next.js アプリを IndexNow で高速インデックス化する方法
-date: 2024-08-07T15:33:29.357Z
+title: 次の Next.js アプリを IndexNow で早くインデックスする方法
+date: 2024-08-07T16:11:04.738Z
 author: Vivek Sahu
 authorURL: https://www.freecodecamp.org/news/author/wewake/
 originalURL: https://www.freecodecamp.org/news/how-to-index-nextjs-pages-with-indexnow/
@@ -8,109 +8,109 @@ translator: ""
 reviewer: ""
 ---
 
-Next.js は、非常に高速なアプリケーションを構築するための強力なフレームワークです。しかし、これらのアプリケーションを検索エンジンに早くインデックスさせることは、可視性とトラフィックのために非常に重要です。しかし、残念ながらこれは即座には実現しません。
+Next.js は超高速なアプリケーションを構築するための強力なフレームワークです。しかし、検索エンジンに迅速にインデックスされることが、可視性とトラフィックにとって重要です。残念ながら、これは即座には行われません。
 
 <!-- more -->
 
-サイトマップをアップロードした後でも、検索エンジンがあなたのページをクロールするまでに数週間から数ヶ月かかることがあります。特に新しいページを追加したり、既存のページを更新したりした場合、検索エンジンにその変更が認識されるまでにはかなりの時間がかかることがあります。
+サイトマップをアップロードした後でも、検索エンジンがページをクロールするまでに数週間から数ヶ月かかることがあります。新しいページを追加したり更新したりした場合、検索エンジンがそれを認識するまで数週間かかることもあります。
 
-さて、もっと良い方法はないのでしょうか？
+では、もっと早くする方法はないのでしょうか？
 
-この記事では、IndexNow を使用して、Bing や Yahoo などの主要な検索エンジンであなたの Next.js アプリの SEO を高速化する方法を学びます。
+この記事では、Next.js アプリを IndexNow を使用して Bing や Yahoo などの主要な検索エンジンで迅速にインデックスさせる方法を学びます。
 
 ## 目次
 
--   [IndexNow とは？][1]
-    -   [どのように動作するのか？][2]
+-   [IndexNow とは?][1]
+    -   [どのように機能するのか?][2]
 -   [手順][3]
     -   [前提条件][4]
     -   [高レベルの手順][5]
     -   [ホストの所有権を証明する方法][6]
-    -   [サイトマップから全ての URL を取得するスクリプトを作成する方法][7]
-    -   [IndexNow API を呼び出す方法][8]
+    -   [サイトマップから URL を取得するスクリプトを作成する方法][7]
+    -   [IndexNow API の呼び出し方法][8]
 -   [次のステップと改善点][9]
 -   [結論][10]
 -   [リンクと参考文献][11]
 
-## IndexNow とは？
+## IndexNow とは?
 
-[IndexNow][12] はインデックス時間を劇的に短縮するプロトコルです。公式ウェブサイトでは次のように定義されています：
+[IndexNow][12] は、インデックス時間を劇的に短縮するプロトコルです。彼らのウェブサイトでは次のように定義されています。
 
-> IndexNow は、ウェブサイトのオーナーが最新のコンテンツ変更を検索エンジンに即座に知らせる簡単な方法です。最もシンプルな形では、IndexNow は単なる ping であり、URL とそのコンテンツが追加された、更新された、または削除されたことを検索エンジンに知らせ、これにより検索エンジンは検索結果にこの変更を迅速に反映することができます。([ソース: IndexNow ホーム][13])
+> IndexNow は、ウェブサイトの所有者がウェブサイトの最新の内容の変更を検索エンジンに即座に通知する簡単な方法です。最もシンプルな形では、IndexNow は URL とその内容が追加、更新、または削除されたことを検索エンジンに知らせる簡単な ping です。これにより、検索エンジンは検索結果でこの変更を迅速に反映することができます。([出典：IndexNow ホーム][13])
 
-このプロトコルは、Bing、Naver、Seznam.cz、Yandex、Yep などによって採用されています。この記事を書いている時点では、Google はこのプロトコルをサポートしていません。
+Bing、Naver、Seznam.cz、Yandex、Yep などで採用されています。ただし、この記事の執筆時点では Google はこのプロトコルをサポートしていません。
 
-Wix などの多くの CMS にネイティブに統合されていますが、Drupal や WordPress のような他のものにはサードパーティのプラグインがあります。しかし、NextJS にはネイティブサポートがありません。
+Wix などの多くの CMS にはネイティブ統合されていますし、Drupal や WordPress のような他の CMS 向けのサードパーティプラグインもたくさんあります。ただし、Next.js にはネイティブサポートがありません。
 
-### どのように動作するのか？
+### どのように機能するのか?
 
-何かを更新するたびに、API を呼び出してこの変更を知らせるだけです。
+何かを更新するたびに、「ping」、つまり API を呼び出してその変更を通知するだけで済みます。
 
-この情報が受け取られると、検索エンジンは他の自然にクロールされる URL よりも優先してこれらの URL をクロールすることができます。
+この情報が受信されると、検索エンジンは自然にクロールされる他の URL よりも優先してこれらの URL をクロールするようになります。
 
-このガイドでは、既存の Next.js アプリに IndexNow を統合し、URL に変更があった場合に検索エンジンに提出してインデックス化させる方法を紹介します。
+このガイドでは、URL の変更を検索エンジンに提出し、インデックスさせるために IndexNow を既存の Next.js アプリに統合するプロセスを紹介します。
 
 ### 前提条件
 
--   Next.js アプリ
--   Next.js アプリ用の **sitemap.xml**
+-   Next.js アプリが必要です。
+-   Next.js アプリ用の **sitemap.xml** が必要です。
 
 ### 高レベルの手順
 
-1.  最初に、URL を提出するためのホストの「所有権を証明」する必要があります。
-2.  サイトマップから全ての URL を取得するためのシンプルな Node.js スクリプトを作成します。
+1.  最初に、URL を送信するホストの所有権を「証明」する必要があります。
+2.  サイトマップからすべての URL を取得する簡単な Node.js スクリプトを作成します。
 3.  IndexNow API を呼び出します。
 
 ### ホストの所有権を証明する方法
 
-Bing の [`IndexNow`][14] [ページ][15] へ移動します。Next.js への直接の統合はないので、[手動での統合][16] セクションまでスクロールします。
+Bing の [`IndexNow`][14] [ページ][15]に移動します。Next.js 用の直接的な統合はないので、ページをスクロールして [手動統合][16] セクションを探します。
 
 「Generate」をクリックして新しい API キーを生成します。
 
-Next.js アプリのルートにある **public** ディレクトリに移動します。すべての静的コンテンツはこのディレクトリを通じてレンダリングされます。新しいファイルを作成し、この API キーを保存します：
+Next.js アプリの **public** ディレクトリに移動します。すべての静的コンテンツはこのディレクトリ経由でレンダリングされます。新しいファイルを作成し、この API キーを保存します。
 
 ```bash
-# API キーが "f34f184d10c049ef99aa7637cdc4ef04" であると仮定します。生成された API キーに応じて変更してください
+# API キーが "f34f184d10c049ef99aa7637cdc4ef04" だと仮定します。生成された API キーに応じて変更してください
 echo "f34f184d10c049ef99aa7637cdc4ef04" > f34f184d10c049ef99aa7637cdc4ef04.txt
 ```
 
-Next.js アプリをビルドして実行します：
+Next.js アプリをビルドして実行します。
 
 ```bash
 npm run build && npm run start
 ```
 
-その後、パス `/f34f184d10c049ef99aa7637cdc4ef04.txt` にファイルが存在することを確認します。
+その後、パス `/f34f184d10c049ef99aa7637cdc4ef04.txt` にファイルがあることを確認します。
 
-つまり、[https://localhost:3000/f34f184d10c049ef99aa7637cdc4ef04.txt][17] を開くと、ブラウザに「f34f184d10c049ef99aa7637cdc4ef04」のテキストが表示されるはずです。
+つまり、[https://localhost:3000/f34f184d10c049ef99aa7637cdc4ef04.txt][17] を開くと、ブラウザに「f34f184d10c049ef99aa7637cdc4ef04」というテキストが表示されるはずです。
 
-API キーに応じて上記のキーの値を変更します。この変更をコミットし、プッシュして本番環境にデプロイします。
+API キーに応じて上記のキー値を変更してください。この変更をコミットしてプッシュし、本番環境にデプロイします。
 
-デプロイが成功したら、`<Your URL>/<API Key>.txt` が `<API Key>` テキストをレンダリングすることを確認します。つまり、`<Your URL>/f34f184d10c049ef99aa7637cdc4ef04.txt` が `f34f184d10c049ef99aa7637cdc4ef04` をレンダリングすることを確認します。
+デプロイが成功したら、`<Your URL>/<API Key>.txt` が `<API Key>` テキストをレンダリングすることを確認します。つまり、`<Your URL>/f34f184d10c049ef99aa7637cdc4ef04.txt` は `f34f184d10c049ef99aa7637cdc4ef04` をレンダリングするはずです。
 
-### サイトマップから全ての URL を取得するスクリプトを作成する方法
+### サイトマップから URL を取得するスクリプトを作成する方法
 
-まず、Node スクリプトファイルを作成します：
+まず、Node スクリプトファイルを作成します。
 
 ```bash
 touch lib/indexnow.js
 ```
 
-次に、以下のコードを追加します：
+その後、以下のコードを追加します。
 
 ```js
 const xml2js = require('xml2js');
 
-// 設定
-const sitemapUrl = '<Your URL>/sitemap.xml'; // TODO: 更新
-const host = '<Your URL>'; // TODO: 更新
-const key = '<API Key>'; // TODO: 更新
-const keyLocation = 'https://<Your URL>/<API Key>.txt'; // TODO: 更新
+// Configuration
+const sitemapUrl = '<Your URL>/sitemap.xml'; // TODO: Update
+const host = '<Your URL>'; // TODO: Update
+const key = '<API Key>'; // TODO: Update
+const keyLocation = 'https://<Your URL>/<API Key>.txt'; // TODO: Update
 
 const modifiedSinceDate = new Date(process.argv[2] || '1970-01-01');
 
 if (isNaN(modifiedSinceDate.getTime())) {
-  console.error('無効な日付が提供されました。YYYY-MM-DD フォーマットを使用してください');
+  console.error('Invalid date provided. Please use format YYYY-MM-DD');
   process.exit(1);
 }
 
@@ -131,7 +131,8 @@ function fetchSitemap(url) {
 }
 ```
 
-```js
+
+```markdown
 function filterUrlsByDate(sitemap, date) {
   const urls = sitemap.urlset.url;
   return urls
@@ -152,31 +153,32 @@ async function main() {
 }
 
 main();
+
 ```
 
-このスクリプトは、指定した日付以降に更新されたサイトマップの URL を取得するものです。日付はスクリプトに引数として渡すことができます。
+このスクリプトでは、指定した日付以降に更新されたサイトマップの URL を取得します。日付はスクリプトの引数として渡すことができます。
 
-次に、XML レスポンスを解析するために `xml2js` ライブラリをインストールします。
+次に、サイトマップの XML レスポンスを解析するために `xml2js` ライブラリをインストールします。
 
 ```bash
 npm install xml2js --save-dev
 ```
 
-続いて、スクリプトを実行し、URL が正常に取得できるか確認しましょう。
+その後、スクリプトを実行して URL を取得し、正しく動作するか確認しましょう：
 
 ```bash
 node lib/indexnow.js 2024-01-01
 ```
 
-これで、2024 年 1 月 1 日以降に更新された URL のリストが出力されるはずです。任意の日付を渡すことが可能です。
+これにより、2024 年 1 月 1 日以降に更新された URL のリストが出力されます。任意の日付を渡すことができます。
 
 ### IndexNow API を呼び出す方法
 
-以下に IndexNow API のスキーマを示します。
+以下に IndexNow API のスキーマを示します：
 
 **リクエスト:**
 
-```http
+```
 POST /IndexNow HTTP/1.1
 Content-Type: application/json; charset=utf-8
 Host: api.indexnow.org
@@ -194,17 +196,17 @@ Host: api.indexnow.org
 
 **レスポンス:**
 
-| HTTP コード | レスポンス | 理由 |
+| HTTP Code | Response | Reasons |
 | --- | --- | --- |
-| 200 | Ok | URL が正常に送信されました |
-| 400 | Bad request | 無効な形式 |
-| 403 | Forbidden | キーが無効（例：キーが見つからない、ファイルがあるがキーがファイルにない） |
-| 422 | Unprocessable Entity | URL がホストに属さない、またはプロトコル内のスキーマにキーが一致しない |
-| 429 | Too Many Requests | リクエストが多すぎる（スパムの可能性） |
+| 200 | Ok | URL submitted successfully |
+| 400 | Bad request | Invalid format |
+| 403 | Forbidden | In case of key not valid (e.g., key not found, file found but key not in the file) |
+| 422 | Unprocessable Entity | In case URLs don't belong to the host or the key is not matching the schema in the protocol |
+| 429 | Too Many Requests | Too Many Requests (potential Spam) |
 
-URL 取得部分が正確に動作していることを確認したら、IndexNow API を呼び出すメイン関数を追加しましょう。
+URL 取得部分が正しく動作することを確認したら、IndexNow API を呼び出すためのメイン機能を追加しましょう。
 
-お気に入りの IDE を使用して `lib/index.js` ファイルを開き、次の関数を追加します。
+お気に入りの IDE を使用して `lib/index.js` ファイルを開き、以下の関数を追加します：
 
 ```js
 function postToIndexNow(urlList) {
@@ -251,9 +253,9 @@ function postToIndexNow(urlList) {
 }
 ```
 
-この関数は、URL のリストと `<API Key>` を渡して IndexNow API を呼び出します。
+この関数は、渡された URL リストを含むデータを IndexNow API に送信します。
 
-メイン関数からこの関数を呼び出すよう修正します。メイン関数は次のように変更します。
+この関数をメイン機能から呼び出すようにします。メイン関数を以下のように変更します：
 
 ```js
 async function main() {
@@ -277,11 +279,11 @@ async function main() {
 }
 ```
 
-これで、指定された日付以降に更新されたすべての URL に対して IndexNow API が呼び出されます。
+これで、指定した URL ごとに IndexNow API が呼び出されます。
 
-スクリプトを実行すると、成功時には以下のような出力が表示され、エラーが発生した場合にはエラーメッセージが表示されます。
+スクリプトを実行すると、成功時には次のような出力が表示されます。問題が発生した場合はエラーメッセージが表示されます：
 
-```bash
+```
 % node lib/indexnow.js 2024-07-24
 
 [
@@ -294,45 +296,45 @@ Status: 200 OK
 Data:
 ```
 
-これで、API が IndexNow と連携して高速なインデックス作成が可能になります。
+お見事！これで、あなたの API は IndexNow を使用して迅速にインデックスされるようになります。
 
 ## 次のステップと改善点
 
-今回のスクリプトは、ローカル環境で実行することで IndexNow を介してページをインデックス化する方法を紹介しました。さらなる改善点として以下のような方法があります。
+この記事では、IndexNow を使用してページをローカルでインデックスするスクリプトの作成と実行方法について説明しました。しかし、さらに改善するために以下の項目を考慮することができます：
 
-- CI/CD パイプラインに IndexNow を統合し、自動更新を実現。
-- 大規模なサイトマップを効率的に処理するために、バッチ処理やキューを使用。
-- IndexNow 送信を監視し、デバッグや分析のためのログを生成。
-- IndexNow API の追加機能を探求（例：URL 削除）。
-- CLI バージョンの提供。
-- TypeScript サポートの追加。
+-   自動更新のために CI/CD パイプラインに IndexNow を統合する。
+-   バッチ処理やキューを使用して大規模なサイトマップを効率的に処理する。
+-   デバッグや分析のために IndexNow の送信を監視しログを記録する。
+-   IndexNow API の追加機能（例えば URL 削除）を探索する。
+-   CLI バージョンを提供する。
+-   TypeScript サポートを追加する。
 
-これらは本記事の範囲外ですが、いくつかの npm モジュールは、これらの高度な機能を実装したものであり、それらをアプリケーションに組み込むことが可能です。私はこれらの機能をサポートするモジュール（[indexnow-submitter の発表][18] を参照）も作成しましたので、これを Node ベースのアプリケーションに簡単に組み込むことができます。
+これらはこの記事の範囲を超えますが、このような高度な機能を実装したプロダクションレディな npm モジュールがいくつか存在し、それらをアプリに統合することができます。私は一部の機能やサポートを追加するために [indexnow-submitter announcement][18] を作成しました。Node ベースのアプリケーションにこれらのモジュールを簡単にプラグインして使用することができます。
 ```
 
-この記事では、Next.js アプリケーションに `IndexNow` プロトコルを追加する方法について学びました。このプロトコルを活用することで、ウェブサイトに変更を加えるたびに、ページのインデックス作成を自動化かつ迅速に行うことができ、検索エンジンが最新のコンテンツを取得できるようになります。
+この記事では、Next.js アプリケーションに `IndexNow` プロトコルを追加する方法について説明しました。このプロトコルを活用することで、ウェブサイトに変更を加えた際、検索エンジンが最新の内容を迅速かつ自動的にインデックス化できるようになり、ページのインデックス化体験を格段に向上させることが可能です。
 
-この記事が役立つことを願っています。さらにカスタマイズしたり、自分に合った統合方法を自由に試してみてください。
+この記事が役に立ったことを願っています。ぜひ、この統合をさらにカスタマイズして、あなたのニーズに合った形に仕上げてみてください。
 
-## リンクと参考資料
+## リンクと参考情報
 
-- [IndexNow ドキュメント][19]
-- [FAQ][20]
-- [IndexNow Bing][21]
-- [indexnow-submitter NPM モジュール][22]
-- [indexnow-submitter リリース発表][23]
+-   [IndexNow ドキュメント][19]
+-   [FAQ][20]
+-   [IndexNow Bing][21]
+-   [indexnow-submitter NPM モジュール][22]
+-   [indexnow-submitter リリース発表][23]
 
 ---
 
 ![Vivek Sahu](https://www.freecodecamp.org/news/content/images/size/w60/2024/08/avatar.jpeg)
 
-BITS Pilani の CSE 卒業生で、~8 年間にわたり MNC と製品ベースのスタートアップ（HR SAAS、eコマースウェブアプリ、ゲーム、クラウドインフラ）で多岐にわたる経験を積んできました。フリーランスとして https://wenixtech.com でも活動中です。
+BITS Pilani 出身の CSE 卒業生で、約8年にわたり MNC とプロダクトベースのスタートアップ (HR SAAS、e-commerce ウェブアプリ、ゲーム、クラウドインフラ) での多岐にわたる経験を持つ。現在はフリーランスとして https://wenixtech.com で活動中。
 
 ---
 
-ここまで読んでくれてありがとう。感謝の気持ちを伝えましょう。ありがとうと言ってみてください。
+ここまで読んでくれてありがとう。ぜひ、作者に感謝の気持ちを伝えてください。お礼を言う
 
-無料でコーディングを学びましょう。freeCodeCamp のオープンソースカリキュラムは、40,000 人以上の人々が開発者として就職するのを助けています。[今すぐ開始][24]
+無料でコーディングを学びましょう。freeCodeCamp のオープンソースカリキュラムは、40,000 人以上がデベロッパーとして就職するのを助けてきました。[今すぐ始める][24]
 
 [1]: #what-is-indexnow
 [2]: #how-does-it-work
