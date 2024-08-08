@@ -39,7 +39,7 @@ jobs:
           githubToken: '${{ github.token }}'
 
       - name: Articles auto translate
-        uses: freeCodeCamp/articles-auto-translate-action@main
+        uses: sidemt/articles-auto-translate-action@main # for testing
         with:
           with_issue_title: '${{ github.event.issue.title }}'
           with_issue_body: '${{ github.event.issue.Body }}'
