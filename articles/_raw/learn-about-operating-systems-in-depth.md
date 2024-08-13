@@ -1,6 +1,6 @@
 ---
 title: Learn About Operating Systems In-Depth
-date: 2024-08-13T11:09:56.285Z
+date: 2024-08-13T11:11:33.896Z
 author: Beau Carnes
 authorURL: https://www.freecodecamp.org/news/author/beaucarnes/
 originalURL: https://www.freecodecamp.org/news/learn-about-operating-systems-in-depth/
