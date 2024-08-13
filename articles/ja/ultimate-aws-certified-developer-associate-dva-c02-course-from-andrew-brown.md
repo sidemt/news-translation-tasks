@@ -1,5 +1,5 @@
 ---
-title: Andrew Brown 提供の究極の AWS Certified Developer Associate (DVA-C02) コース
+title: 究極の AWS Certified Developer Associate (DVA-C02) コース (講師: Andrew Brown)
 date: 2024-08-13T11:54:42.166Z
 author: Beau Carnes
 authorURL: https://www.freecodecamp.org/news/author/beaucarnes/
@@ -8,7 +8,7 @@ translator: ""
 reviewer: ""
 ---
 
-あなたの AWS スキルを向上させ、AWS Developer Associate 認定を取得する準備はできていますか？それならこちらをご覧ください！Andrew Brown の提供する包括的な AWS Certified Developer Associate (DVA-C02) コースが、freeCodeCamp.org の YouTube チャンネルで無料で公開されています。このコースを通じて、AWS をマスターし認定試験に合格するための知識を身につけましょう。
+AWS スキルを向上させ、AWS Developer Associate 認定資格を取得したいと思っていますか？それならこのコースがぴったりです！Andrew Brown の提供する包括的な AWS Certified Developer Associate (DVA-C02) コースが、freeCodeCamp.org の YouTube チャンネルで無料で公開されました。このコースを通じて、AWS をマスターし認定試験に合格するための知識を身につけましょう。
 
 <!-- more -->
 
@@ -18,7 +18,7 @@ reviewer: ""
 
 ## **コース内容**
 
-このコースは、さまざまな AWS サービスやコンセプトについての深い理解を提供するように構成されています。学べる内容の一部をご紹介します：
+このコースは、さまざまな AWS サービスやコンセプトについての深い理解を提供するように構成されています。学べる内容の一部をご紹介します:
 
 1.  **AWS Developer Associate 入門**
     
@@ -139,7 +139,7 @@ reviewer: ""
     -   実践セッション
         
 
-...その他盛りだくさん！
+... その他盛りだくさん！
 
 ## **このコースを受講する理由**
 
@@ -154,7 +154,7 @@ reviewer: ""
 
 ## **今すぐ視聴する**
 
-[freeCodeCamp.org の YouTube チャンネル][1] にアクセスして、今すぐ学び始めましょう（81 時間の視聴）。
+[freeCodeCamp.org の YouTube チャンネル][1]にアクセスして、今すぐ学び始めましょう (全 81 時間)。
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TTcyhhH2FWE" style="aspect-ratio: 16 / 9; width: 100%; height: auto;" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" loading="lazy"></iframe>
 
