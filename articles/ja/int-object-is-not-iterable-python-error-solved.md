@@ -8,7 +8,7 @@ translator: ""
 reviewer: ""
 ---
 
-Python コードを実行しているときに「TypeError: 'int' object is not iterable」というエラーに遭遇した場合、それは整数や反復処理ができないデータ型に対してループを試みていることを意味します。
+Python コードの実行中に「TypeError: 'int' object is not iterable」というエラーに遭遇した場合、それは整数や反復処理ができないデータ型に対してループを試みていることを意味します。
 
 <!-- more -->
 
