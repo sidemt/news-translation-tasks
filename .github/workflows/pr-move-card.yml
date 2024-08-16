@@ -23,6 +23,7 @@ jobs:
         env:
           PR_NODE_ID: ${{ github.event.pull_request.node_id }}
         with:
+          github-token: ${{ secrets.MOVE_CARDS_TOKEN }} # Needed to access project data
           script: |
             // Debug log
             console.log("context:", JSON.stringify(context, null, 2));
@@ -88,7 +89,6 @@ jobs:
             core.setOutput('card_id', cardId);
             core.setOutput('project_url', projectUrl);
             core.setOutput('project_name', projectName);
-          github-token: ${{ secrets.MOVE_CARDS_TOKEN }} # Needed to access project data
 
   move_card:
     name: Update project card
