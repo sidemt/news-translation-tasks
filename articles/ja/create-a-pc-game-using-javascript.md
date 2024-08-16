@@ -8,7 +8,7 @@ translator: ""
 reviewer: ""
 ---
 
-JavaScript を使って PC ゲームを作成できることをご存知でしたか？
+JavaScriptを使って PC ゲームを作成できることをご存知でしたか？
 
 <!-- more -->
 
