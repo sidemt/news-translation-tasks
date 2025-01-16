@@ -56,3 +56,4 @@ jobs:
         with:
           message: Remove trailing spaces
           default_author: github_actions
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use the GITHUB_TOKEN for authentication
