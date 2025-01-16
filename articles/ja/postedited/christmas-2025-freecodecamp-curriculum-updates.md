@@ -4,11 +4,11 @@ date: 2025-01-13T10:17:32.261Z
 author: Quincy Larson 
 authorURL: https://www.freecodecamp.org/news/author/quincy/ 
 originalURL: https://www.freecodecamp.org/news/christmas-2025-freecodecamp-curriculum-updates/ 
-posteditor: "" 
+posteditor: "test" 
 proofreader: "" 
 --- 
  
-メリークリスマス、キャンパーの皆さん！🎄 今年のホリデーシーズンに向けて、freeCodeCamp では大量の無料学習ツールをリリースしました。ぜひこの機会にご活用ください。 
+キャンパーの皆さん、メリークリスマス！🎄 今年のホリデーシーズンに向けて、freeCodeCamp では大量の無料学習ツールをリリースしました。ぜひこの機会にご活用ください。 
  
 <!-- more --> 
  
